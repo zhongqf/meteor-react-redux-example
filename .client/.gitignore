@@ -25,4 +25,4 @@ $RECYCLE.BIN/
 
 *~
 .directory
-client/bundle.js
+node_modules
