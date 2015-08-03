@@ -4,6 +4,7 @@ import { Connector } from 'redux/react';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import * as TodoActions from '../actions/TodoActions';
+import * as CollectionActions from '../actions/CollectionActions';
 
 export default class TodoApp extends Component {
   render() {
@@ -15,7 +16,7 @@ export default class TodoApp extends Component {
   }
 
   renderChild({ todos, dispatch }) {
-    const actions = bindActionCreators(TodoActions, dispatch);
+    const actions = bindActionCreators({...TodoActions, ...CollectionActions}, dispatch);
     return (
       <div>
         <Header addTodo={actions.addTodo} />

@@ -46,7 +46,7 @@ export default class MainSection extends Component {
         {this.renderToggleAll(markedCount)}
         <ul className='todo-list'>
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+            <TodoItem key={todo._id} todo={todo} {...actions} />
           )}
         </ul>
         {this.renderFooter(markedCount)}

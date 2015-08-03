@@ -4,3 +4,7 @@ export const EDIT_TODO = 'EDIT_TODO';
 export const MARK_TODO = 'MARK_TODO';
 export const MARK_ALL = 'MARK_ALL';
 export const CLEAR_MARKED = 'CLEAR_MARKED';
+
+
+export const TODO_CHANGED = 'TODO_CHANGED';
+

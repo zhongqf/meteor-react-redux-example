@@ -1,48 +1,42 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, MARK_TODO, MARK_ALL, CLEAR_MARKED } from '../constants/ActionTypes';
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, MARK_TODO, MARK_ALL, CLEAR_MARKED, TODO_CHANGED } from '../constants/ActionTypes';
 
-const initialState = [{
-  text: 'Use Redux',
-  marked: false,
-  id: 0
-}];
+console.log("findAll");
+const initialState = Todo.findAll();
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
+
   case ADD_TODO:
-    return [{
-      id: (state.length === 0) ? 0 : state[0].id + 1,
+    Todos.insert({
       marked: false,
       text: action.text
-    }, ...state];
+    });
+
+    return Todo.findAll();
 
   case DELETE_TODO:
-    return state.filter(todo =>
-      todo.id !== action.id
-    );
+    Todos.remove({_id: action.id})
+    return Todo.findAll(); 
 
   case EDIT_TODO:
-    return state.map(todo =>
-      todo.id === action.id ?
-        { ...todo, text: action.text } :
-        todo
-    );
+    Todos.update({_id: action.id}, {$set: {text: action.text}})
+    return Todo.findAll(); 
 
   case MARK_TODO:
-    return state.map(todo =>
-      todo.id === action.id ?
-        { ...todo, marked: !todo.marked } :
-        todo
-    );
+    const todo = Todos.findOne({_id: action.id})
+    Todos.update({_id: action.id}, {$set: {marked: !todo.marked}})
+    return Todo.findAll(); 
 
   case MARK_ALL:
-    const areAllMarked = state.every(todo => todo.marked);
-    return state.map(todo => ({
-      ...todo,
-      marked: !areAllMarked
-    }));
+    Todos.update({}, {$set: {marked: true}})
+    return Todo.findAll(); 
 
   case CLEAR_MARKED:
-    return state.filter(todo => todo.marked === false);
+    Todos.update({}, {$set: {marked: false}})
+    return Todo.findAll(); 
+
+  case TODO_CHANGED:
+    return Todo.findAll();
 
   default:
     return state;
