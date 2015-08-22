@@ -1,13 +1,13 @@
 
 import React from 'react';
-import App from './containers/App';
+import Root from './containers/Root';
 import 'todomvc-app-css/index.css';
 
 
 
 Template.body.onRendered(function(){
   React.render(
-    <App />,
+    <Root />,
     document.getElementById('root')
   )
 });
